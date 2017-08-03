@@ -16,7 +16,7 @@ class MyWindow < Gosu::Window
     super(WINDOW_WIDTH, WINDOW_HEIGHT, :fullscreen => false)
     self.caption = "Tile sum game" # the caption method must come after the window creation "super()"
     @myBoard = Board.new
-    # @myBoard.spawn_two_tiles
+    @myBoard.spawn_two_tiles
   end
 
   # the built-in 'draw_quad' method is redefined for simplicity

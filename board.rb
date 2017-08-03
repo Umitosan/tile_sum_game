@@ -7,8 +7,8 @@ class Board
     4.times do |r|
       rowArr = []
       4.times do |c|
-        tmpTile = Tile.new(c*200,r*200,0)
-        rowArr.push(tmpTile)
+        emptyTile = Tile.new(c*200,r*200,1,0x99000000)
+        rowArr.push(emptyTile)
       end
       @tile_arr.push(rowArr)
     end
@@ -17,9 +17,10 @@ class Board
 
   def spawn_two_tiles
     2.times do |i|
-      randRow = Gosu.random(0,3)
-      randCol = Gosu.random(0,3)
-      tmpTile = Tile.new(randCol*200,randRow*200,2)
+      randRow = Gosu.random(0,4).floor
+      randCol = Gosu.random(0,4).floor
+      randColor = (Gosu.random(0,99999999) + 0x77000000).round
+      tmpTile = Tile.new(randCol*200,randRow*200,2,randColor)
       @tile_arr[randRow][randCol] = tmpTile
     end
   end
@@ -28,7 +29,11 @@ class Board
 
     @tile_arr.each_with_index do |row, i|
       row.each_with_index do |tile, j|
-        tile.draw
+        if tile.val == 0
+          "nothing"
+        else
+          tile.draw
+        end
       end
     end
 
