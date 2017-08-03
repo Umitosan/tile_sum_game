@@ -19,6 +19,7 @@ class MyWindow < Gosu::Window
     @myBoard.spawn_two_tiles
     @tiles_moving = false
     @tiles_status_txt = Gosu::Image.from_text( "false", 40 )
+    @move_timer = nil
   end
 
   # the built-in 'draw_quad' method is redefined for simplicity
@@ -31,6 +32,14 @@ class MyWindow < Gosu::Window
     if @tiles_moving == false
       @tiles_moving = true
       @tiles_status_txt = Gosu::Image.from_text( "true", 40 )
+      @move_timer = Gosu.milliseconds
+    end
+  end
+
+  def check_move_timer
+    if ((Gosu.milliseconds - @move_timer) > 500)
+      @tiles_moving = false
+      @tiles_status_txt = Gosu::Image.from_text( "false", 40 )
     end
   end
 
@@ -54,7 +63,9 @@ class MyWindow < Gosu::Window
 
   ##############################################################
   def update
-
+    if (@tiles_moving == true)
+      check_move_timer
+    end
   end # END UPDATE
 
   def draw
