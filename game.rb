@@ -16,7 +16,7 @@ class MyWindow < Gosu::Window
     super(WINDOW_WIDTH, WINDOW_HEIGHT, :fullscreen => false)
     self.caption = "Tile sum game" # the caption method must come after the window creation "super()"
     @myBoard = Board.new
-    @myBoard.spawn_two_tiles
+    @myBoard.spawn_tile
     @tiles_moving = false
     @tiles_status_txt = Gosu::Image.from_text( "false", 40 )
     @move_timer = nil
@@ -47,15 +47,19 @@ class MyWindow < Gosu::Window
     if button == Gosu::KbEscape
        self.close!
     elsif button == Gosu::KbSpace
-      @myBoard.spawn_two_tiles
+      @myBoard.spawn_tile
     elsif button == Gosu::KB_LEFT
       trigger_move
+      @myBoard.tiles_left
     elsif button == Gosu::KB_RIGHT
       trigger_move
+      @myBoard.tiles_right
     elsif button == Gosu::KB_UP
       trigger_move
+      @myBoard.tiles_up
     elsif button == Gosu::KB_DOWN
       trigger_move
+      @myBoard.tiles_down
     else
       super
     end
