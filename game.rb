@@ -2,6 +2,9 @@ require 'rubygems'
 require 'gosu'
 require 'pry'
 
+require_relative 'board'
+require_relative 'tile'
+
 include Gosu
 
 
@@ -12,7 +15,8 @@ class MyWindow < Gosu::Window
   def initialize
     super(WINDOW_WIDTH, WINDOW_HEIGHT, :fullscreen => false)
     self.caption = "Tile sum game" # the caption method must come after the window creation "super()"
-
+    @myBoard = Board.new
+    # @myBoard.spawn_two_tiles
   end
 
   # the built-in 'draw_quad' method is redefined for simplicity
@@ -46,7 +50,8 @@ class MyWindow < Gosu::Window
   end # END UPDATE
 
   def draw
-
+    draw_rect(0,0,WINDOW_HEIGHT,WINDOW_WIDTH,0x77222222)
+    @myBoard.draw
   end
   ##############################################################
 end # END MyWindow
