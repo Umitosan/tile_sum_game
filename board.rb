@@ -19,9 +19,11 @@ class Board
     2.times do |i|
       randRow = Gosu.random(0,4).floor
       randCol = Gosu.random(0,4).floor
-      randColor = (Gosu.random(0,99999999) + 0x77000000).round
-      tmpTile = Tile.new(randCol*200,randRow*200,2,randColor)
-      @tile_arr[randRow][randCol] = tmpTile
+
+          randColor = (Gosu.random(0,99999999) + 0x77000000).round
+          tmpTile = Tile.new(randCol*200,randRow*200,2,randColor)
+          @tile_arr[randRow][randCol] = tmpTile
+
     end
   end
 

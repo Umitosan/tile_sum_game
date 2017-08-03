@@ -17,6 +17,8 @@ class MyWindow < Gosu::Window
     self.caption = "Tile sum game" # the caption method must come after the window creation "super()"
     @myBoard = Board.new
     @myBoard.spawn_two_tiles
+    @tiles_moving = false
+    @tiles_status_txt = Gosu::Image.from_text( "false", 40 )
   end
 
   # the built-in 'draw_quad' method is redefined for simplicity
@@ -25,9 +27,26 @@ class MyWindow < Gosu::Window
               x, y + h, color, x + w, y + h, color
   end
 
+  def trigger_move
+    if @tiles_moving == false
+      @tiles_moving = true
+      @tiles_status_txt = Gosu::Image.from_text( "true", 40 )
+    end
+  end
+
   def button_down(button)
     if button == Gosu::KbEscape
        self.close!
+    elsif button == Gosu::KbSpace
+      @myBoard.spawn_two_tiles
+    elsif button == Gosu::KB_LEFT
+      trigger_move
+    elsif button == Gosu::KB_RIGHT
+      trigger_move
+    elsif button == Gosu::KB_UP
+      trigger_move
+    elsif button == Gosu::KB_DOWN
+      trigger_move
     else
       super
     end
@@ -35,23 +54,13 @@ class MyWindow < Gosu::Window
 
   ##############################################################
   def update
-    if Gosu.button_down?(Gosu::KB_LEFT)
 
-    end
-    if Gosu.button_down?(Gosu::KB_RIGHT)
-
-    end
-    if Gosu.button_down?(Gosu::KB_UP)
-
-    end
-    if Gosu.button_down?(Gosu::KB_DOWN)
-
-    end
   end # END UPDATE
 
   def draw
     draw_rect(0,0,WINDOW_HEIGHT,WINDOW_WIDTH,0x77222222)
     @myBoard.draw
+    @tiles_status_txt.draw(0,0,2)
   end
   ##############################################################
 end # END MyWindow
