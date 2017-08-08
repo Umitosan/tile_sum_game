@@ -44,6 +44,20 @@ class Board
 
   end
 
+  def reset
+    @tile_arr = []
+    @filled_tiles = 0
+
+    4.times do |r|
+      rowArr = []
+      4.times do |c|
+        emptyTile = Tile.new(c*200,r*200,0,0x99000000)
+        rowArr.push(emptyTile)
+      end
+      @tile_arr.push(rowArr)
+    end
+  end
+
   def draw
     @tile_arr.each_with_index do |row, i|
       row.each_with_index do |tile, j|
