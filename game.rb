@@ -65,7 +65,6 @@ class MyWindow < Gosu::Window
       @myBoard.tiles_down
       2.times { @myBoard.spawn_tile }
     elsif button == Gosu::KB_R
-      # binding.pry
       @myBoard.reset
     else
       super
