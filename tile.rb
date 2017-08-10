@@ -8,7 +8,7 @@ class Tile
     @color = color
   end
 
-  def update_val(num)
+  def update_val_img(num)
     @val = num
     @val_img = Gosu::Image.from_text( num, 60 )
   end

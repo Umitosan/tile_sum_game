@@ -47,10 +47,18 @@ class MyWindow < Gosu::Window
     if button == Gosu::KbEscape
        self.close!
     elsif button == Gosu::KbSpace
-      # 2.times { @myBoard.spawn_tile }
+      # binding.pry
     elsif button == Gosu::KB_LEFT
       trigger_move
-      @myBoard.tiles_left
+
+      future_board = @myBoard
+      future_board.tiles_left
+      while Board.same?(@myBoard, future_board) == false
+        @myBoard.tiles_left
+        future_board = @myBoard
+        future_board.tiles_left
+      end
+
       2.times { @myBoard.spawn_tile }
     elsif button == Gosu::KB_RIGHT
       trigger_move
@@ -69,20 +77,21 @@ class MyWindow < Gosu::Window
     else
       super
     end
-  end # END BUTTON DOWN
+  end # BUTTON DOWN
 
   ##############################################################
   def update
     if (@tiles_moving == true)
       check_move_timer
     end
-  end # END UPDATE
+  end # WINDOW UPDATE
 
   def draw
     draw_rect(0,0,WINDOW_HEIGHT,WINDOW_WIDTH,0x77008877)
     @myBoard.draw
     @tiles_status_txt.draw(0,0,2)
-  end
+  end # WINDOW DRAW
+
   ##############################################################
 end # END MyWindow
 
